@@ -1,5 +1,6 @@
 import { DataTypes, Model, QueryInterface} from "sequelize";
 import { IMatches } from "../../Interfaces/IMatches";
+import TeamModel from "../models/TeamModel";
 
 export default {
   up (queryInterface: QueryInterface) {
@@ -14,6 +15,10 @@ export default {
         type: DataTypes.INTEGER,
         allowNull: false,
         field: 'home_team_id',
+        references: {
+            model: TeamModel,
+            key: 'id',
+          },
       },
       homeTeamGoals: {
         type: DataTypes.INTEGER,
@@ -24,6 +29,10 @@ export default {
         type: DataTypes.INTEGER,
         allowNull: false,
         field: 'away_team_id',
+        references: {
+            model: TeamModel,
+            key: 'id',
+          },
       },
       awayTeamGoals: {
         type: DataTypes.INTEGER,
