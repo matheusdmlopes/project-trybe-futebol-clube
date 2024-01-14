@@ -1,18 +1,10 @@
 FROM node:16.14-alpine
-
 WORKDIR /app-frontend
-
 COPY package* ./
-
 RUN npm install
-
-COPY . ./
-
-EXPOSE 3001
-
-ENTRYPOINT [ "npm", "run" ]
-
-CMD [ "start" ]
+COPY . .
+EXPOSE 3000
+ENTRYPOINT [ "npm", "run", "start" ]
 
 # Usar a imagem node:16.14-alpine como base
 
