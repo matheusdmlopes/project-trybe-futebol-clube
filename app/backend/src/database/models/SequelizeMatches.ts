@@ -8,8 +8,8 @@ import {
 import db from '.';
 // import OtherModel from './OtherModel';
 
-class UsersModel extends Model<InferAttributes<UsersModel>,
-InferCreationAttributes<UsersModel>> {
+class SequelizeMatches extends Model<InferAttributes<SequelizeMatches>,
+InferCreationAttributes<SequelizeMatches>> {
   declare id: CreationOptional<number>;
   declare homeTeamId: number;
   declare homeTeamGoals: number;
@@ -18,7 +18,7 @@ InferCreationAttributes<UsersModel>> {
   declare inProgress: boolean;
 }
 
-UsersModel.init({
+SequelizeMatches.init({
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -57,4 +57,4 @@ UsersModel.init({
   underscored: true,
 });
 
-export default UsersModel;
+export default SequelizeMatches;

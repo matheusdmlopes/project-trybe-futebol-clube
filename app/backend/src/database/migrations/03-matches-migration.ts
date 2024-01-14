@@ -1,6 +1,6 @@
 import { DataTypes, Model, QueryInterface} from "sequelize";
-import { IMatches } from "../../Interfaces/IMatches";
-import TeamModel from "../models/TeamModel";
+import { IMatches } from "../../Interfaces/matches/IMatches";
+import TeamModel from "../models/SequelizeTeams";
 
 export default {
   up (queryInterface: QueryInterface) {
