@@ -6,8 +6,8 @@ import { secret } from '../utils/JWT';
 export default class TokenJWT implements IToken {
   private jwt = jwt;
   generate(user: IUser): string {
-    const { password, ...sendJWT } = user;
-    const token = this.jwt.sign(sendJWT, secret);
+    const { password, ...userInfos } = user;
+    const token = this.jwt.sign(userInfos, secret);
     return token;
   }
 }
