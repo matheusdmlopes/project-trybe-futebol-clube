@@ -1,55 +1,55 @@
-// import { DataTypes, Model, QueryInterface} from "sequelize";
-// import { IMatches } from "../../Interfaces/matches/IMatches";
+import { DataTypes, Model, QueryInterface} from "sequelize";
+import { IMatches } from "../../Interfaces/matches/IMatches";
 // import TeamModel from "../models/SequelizeTeams";
 
-// export default {
-//   up (queryInterface: QueryInterface) {
-//     return queryInterface.createTable<Model<IMatches>>('matches', {
-//       id: {
-//         type: DataTypes.INTEGER,
-//         allowNull: false,
-//         primaryKey: true,
-//         autoIncrement: true,
-//       },
-//       homeTeamId: {
-//         type: DataTypes.INTEGER,
-//         allowNull: false,
-//         field: 'home_team_id',
-//         // references: {
-//         //     model: TeamModel,
-//         //     key: 'id',
-//         //   },
-//       },
-//       homeTeamGoals: {
-//         type: DataTypes.INTEGER,
-//         allowNull: false,
-//         field: 'home_team_goals',
-//       },
-//       awayTeamId: {
-//         type: DataTypes.INTEGER,
-//         allowNull: false,
-//         field: 'away_team_id',
-//         // references: {
-//         //     model: TeamModel,
-//         //     key: 'id',
-//         //   },
-//       },
-//       awayTeamGoals: {
-//         type: DataTypes.INTEGER,
-//         allowNull: false,
-//         field: 'away_team_goals',
-//       },
-//       inProgress: {
-//         type: DataTypes.BOOLEAN,
-//         allowNull: false,
-//         field: 'in_progress',
-//       },
-//     })
-//   },
+export default {
+  up (queryInterface: QueryInterface) {
+    return queryInterface.createTable<Model<IMatches>>('matches', {
+      id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      homeTeamId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        field: 'home_team_id',
+        references: {
+            model: 'teams',
+            key: 'id',
+          },
+      },
+      homeTeamGoals: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        field: 'home_team_goals',
+      },
+      awayTeamId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        field: 'away_team_id',
+        references: {
+            model: 'teams',
+            key: 'id',
+          },
+      },
+      awayTeamGoals: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        field: 'away_team_goals',
+      },
+      inProgress: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        field: 'in_progress',
+      },
+    })
+  },
 
-//    down (queryInterface: QueryInterface) {
+   down (queryInterface: QueryInterface) {
 
-//     return queryInterface.dropTable('teams');
+    return queryInterface.dropTable('teams');
 
-//   }
-// };
+  }
+};
