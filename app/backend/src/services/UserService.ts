@@ -3,7 +3,6 @@ import { IDecrypt } from '../Interfaces/IDecrypt';
 import UserModel from '../models/UserModel';
 import { IUserModel } from '../Interfaces/users/IUserModel';
 import { ServiceResponse } from '../Interfaces/ServiceResponse';
-// import { NewEntity } from '../Interfaces/index';
 import Decrypter from './DecrypterService';
 
 import TokenJWT from './JWTService';
