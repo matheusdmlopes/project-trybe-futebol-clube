@@ -4,6 +4,7 @@ import UserModel from '../models/UserModel';
 import { IUserModel } from '../Interfaces/users/IUserModel';
 import { ServiceResponse } from '../Interfaces/ServiceResponse';
 import Decrypter from './DecrypterService';
+import IUser from '../Interfaces/users/IUser';
 
 import TokenJWT from './JWTService';
 
@@ -33,5 +34,13 @@ export default class UserService {
       status: 'SUCCESSFUL',
       data: { token },
     };
+  }
+
+  async getRole(email: IUser['email']): Promise<ServiceResponse<Pick<IUser, 'role'>>> {
+    const user = await this.userModel.getUserByEmail(email);
+
+    const { role } = user as IUser;
+
+    return { status: 'SUCCESSFUL', data: { role } };
   }
 }

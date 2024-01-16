@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import UserService from '../services/UserService';
 import mapStatusHTTP from '../utils/mapStatusHTTP';
-import { verifyToken } from '../utils/JWT';
+// import { verifyToken } from '../utils/JWT';
 
 export default class UserController {
   constructor(
@@ -20,15 +20,11 @@ export default class UserController {
     return res.status(200).json(serviceResponse.data);
   }
 
-  public async userRole(req: Request, res: Response): Promise<Response> {
-    const { authorization } = req.headers;
+  async userRole(req: Request, res: Response) {
+    const { email } = req.body.user;
 
-    const verify = verifyToken.bind(this)(authorization as string);
+    const { status, data } = await this.userService.getRole(email);
 
-    if (typeof verify === 'string') {
-      return res.status(401).json({ message: 'Token must be a valid token' });//
-    }
-
-    return res.status(200).json({ role: verify.role });
+    return res.status(mapStatusHTTP(status)).json(data);
   }
 }
