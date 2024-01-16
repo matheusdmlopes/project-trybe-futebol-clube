@@ -11,6 +11,7 @@ const router = Router();
 router.use('/teams', teamRouter);
 router.use('/teams/:id', teamRouter);
 router.use('/login', userRouter);
+// router.get('/login', (req, res) => res.status(200).send('oi'));
 router.use('/matches', matchesRouter);
 
 export default router;

@@ -12,7 +12,7 @@ export default class UserController {
     const { email, password } = req.body;
 
     const serviceResponse = await this.userService.login(email, password);
-
+    console.log(serviceResponse);
     if (serviceResponse.status !== 'SUCCESSFUL') {
       const code = mapStatusHTTP(serviceResponse.status);
       return res.status(code).json(serviceResponse.data);

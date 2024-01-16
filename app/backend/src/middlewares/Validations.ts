@@ -13,7 +13,7 @@ export default class Validations {
     if (!verifyEmail(user.email) || !verifyPassword(user.password)) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
-
+    console.log('user');
     next();
   }
 
@@ -21,9 +21,11 @@ export default class Validations {
     const { authorization } = req.headers;
 
     if (!authorization) return res.status(401).json({ message: 'Token not found' });
+    const [,token] = authorization.split(' ');
 
     try {
-      verifyToken(authorization);
+      // verifyToken(token);
+      req.body.user = verifyToken(token);
     } catch (error) {
       return res.status(401).json({ message: 'Token must be a valid token' });
     }
