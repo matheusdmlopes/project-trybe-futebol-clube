@@ -26,7 +26,7 @@ export default class UserController {
     const verify = verifyToken.bind(this)(authorization as string);
 
     if (typeof verify === 'string') {
-      return res.status(401).json({ message: 'Token must be a valid token' });
+      return res.status(401).json({ message: 'Token must be a valid token' });//
     }
 
     return res.status(200).json({ role: verify.role });
