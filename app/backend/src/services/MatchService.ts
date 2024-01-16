@@ -11,9 +11,8 @@ class MatchService {
   ) {}
 
   public async getAllMatches(query: string | undefined): Promise<ServiceResponse<IMatches[]>> {
-    const inProgress = query ? { inProgress: JSON.parse(query) } : undefined;
-
-    const allMatches = await this.matchModel.findAll(inProgress);
+    const allMatches = query ? await this.matchModel.findFiltered(JSON.parse(query))
+      : await this.matchModel.findAll();
 
     return { status: 'SUCCESSFUL', data: allMatches };
   }
