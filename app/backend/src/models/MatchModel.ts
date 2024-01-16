@@ -7,10 +7,11 @@ import SequelizeTeams from '../database/models/SequelizeTeams';
 class MatchModel implements IMatchModel {
   private model = SequelizeMatches;
 
-  async findAll(): Promise<IMatches[]> {
+  async findAll(inProgress: Pick<IMatches, 'inProgress'> | undefined): Promise<IMatches[]> {
     const data = await this.model.findAll({
       include: [{ model: SequelizeTeams, as: 'homeTeam', attributes: ['teamName'] },
         { model: SequelizeTeams, as: 'awayTeam', attributes: ['teamName'] }],
+      where: inProgress,
     });
 
     return data;

@@ -1,3 +1,4 @@
+// import { QueryTypes } from 'sequelize';
 import { IMatchModel } from '../Interfaces/matches/IMatchesModel';
 import { IMatches } from '../Interfaces/matches/IMatches';
 import { ServiceResponse } from '../Interfaces/ServiceResponse';
@@ -9,8 +10,10 @@ class MatchService {
     private matchModel: IMatchModel = new MatchModel(),
   ) {}
 
-  public async getAllMatches(): Promise<ServiceResponse<IMatches[]>> {
-    const allMatches = await this.matchModel.findAll();
+  public async getAllMatches(query: string | undefined): Promise<ServiceResponse<IMatches[]>> {
+    const inProgress = query ? { inProgress: JSON.parse(query) } : undefined;
+
+    const allMatches = await this.matchModel.findAll(inProgress);
 
     return { status: 'SUCCESSFUL', data: allMatches };
   }

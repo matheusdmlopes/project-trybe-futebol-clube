@@ -7,8 +7,11 @@ class MatchesController {
     private matchService = new MatchService(),
   ) {}
 
-  public async getAllMatches(_req: Request, res: Response) {
-    const { status, data } = await this.matchService.getAllMatches();
+  public async getAllMatches(req: Request, res: Response) {
+    const { inProgress } = req.query;
+
+    const { status, data } = await this.matchService
+      .getAllMatches(inProgress as string | undefined);
 
     return res.status(mapStatusHTTP(status)).json(data);
   }
