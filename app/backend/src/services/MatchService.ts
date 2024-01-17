@@ -43,6 +43,15 @@ class MatchService {
   }
 
   async createMatch(data: IMatchCreate): Promise<ServiceResponse<IMatches | ServiceMessage>> {
+    const { homeTeamId, awayTeamId } = data;
+
+    const homeTeam = await this.teamModel.findById(homeTeamId);
+    const awayTeam = await this.teamModel.findById(awayTeamId);
+
+    if (!homeTeam || !awayTeam) {
+      return { status: 'NOT_FOUND', data: { message: 'There is no team with such id!' } };
+    }
+
     const match = await this.matchModel.createMatch(data);
 
     return { status: 'CREATED', data: match };
