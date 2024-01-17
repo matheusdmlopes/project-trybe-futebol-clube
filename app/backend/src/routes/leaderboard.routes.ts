@@ -9,3 +9,4 @@ router.get('/home', (req: Request, res: Response) =>
   leaderboardController.leaderboardHome(req, res));
 
 export default router;
+//
