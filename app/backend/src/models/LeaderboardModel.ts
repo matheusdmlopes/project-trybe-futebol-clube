@@ -15,7 +15,7 @@ class LeaderboardModel implements ILeaderboardModel {
     [sequelize.literal('SUM(home_team_goals = away_team_goals)'), 'totalDraws'],
     [sequelize.literal('SUM(home_team_goals < away_team_goals)'), 'totalLosses'],
     [sequelize.fn('sum', sequelize.col('home_team_goals')), 'goalsFavor'],
-    [sequelize.fn('sum', sequelize.col('away_team_goals')), 'goZalsOwn'],
+    [sequelize.fn('sum', sequelize.col('away_team_goals')), 'goalsOwn'],
     [sequelize.literal('SUM(home_team_goals) - SUM(away_team_goals)'), 'goalsBalance'],
     [sequelize.literal(`ROUND(100 * (SUM(home_team_goals > away_team_goals) * 3
     + SUM(home_team_goals = away_team_goals)) / (COUNT(*) * 3), 2)`), 'efficiency'],
