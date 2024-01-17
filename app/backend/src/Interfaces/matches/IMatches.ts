@@ -8,3 +8,4 @@ export interface IMatches {
 }
 
 export type IMatchScoreboard = Pick<IMatches, 'homeTeamGoals' | 'awayTeamGoals'>;
+export type IMatchCreate = Omit<IMatches, 'id' | 'inProgress'>;

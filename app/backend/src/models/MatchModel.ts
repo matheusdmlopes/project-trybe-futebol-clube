@@ -1,4 +1,4 @@
-import { IMatchScoreboard, IMatches } from '../Interfaces/matches/IMatches';
+import { IMatchCreate, IMatchScoreboard, IMatches } from '../Interfaces/matches/IMatches';
 
 import { IMatchModel } from '../Interfaces/matches/IMatchesModel';
 import SequelizeMatches from '../database/models/SequelizeMatches';
@@ -35,6 +35,21 @@ class MatchModel implements IMatchModel {
 
   async updateMatch(id: number, scoreboard: IMatchScoreboard): Promise<void> {
     await this.model.update(scoreboard, { where: { id } });
+  }
+
+  async findMatchById(id: number): Promise<IMatches | null> {
+    const data = await this.model.findByPk(id, {
+      include: [
+        { model: SequelizeTeams, as: 'homeTeam', attributes: ['teamName'] },
+        { model: SequelizeTeams, as: 'awayTeam', attributes: ['teamName'] },
+      ],
+    });
+    return data;
+  }
+
+  async createMatch(matchData: IMatchCreate): Promise<IMatches> {
+    const data = await this.model.create({ ...matchData, inProgress: true });
+    return data;
   }
 }
 

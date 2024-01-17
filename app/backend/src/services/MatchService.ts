@@ -1,13 +1,16 @@
 // import { QueryTypes } from 'sequelize';
 import { IMatchModel } from '../Interfaces/matches/IMatchesModel';
-import { IMatchScoreboard, IMatches } from '../Interfaces/matches/IMatches';
+import { IMatchCreate, IMatchScoreboard, IMatches } from '../Interfaces/matches/IMatches';
 import { ServiceMessage, ServiceResponse } from '../Interfaces/ServiceResponse';
 
 import MatchModel from '../models/MatchModel';
+import { ITeamsModel } from '../Interfaces/teams/ITeamsModel';
+import TeamsModel from '../models/TeamsModel';
 
 class MatchService {
   constructor(
     private matchModel: IMatchModel = new MatchModel(),
+    private teamModel: ITeamsModel = new TeamsModel(),
   ) {}
 
   public async getAllMatches(query: string | undefined): Promise<ServiceResponse<IMatches[]>> {
@@ -27,9 +30,22 @@ class MatchService {
     id: string,
     scoreboard: IMatchScoreboard,
   ): Promise<ServiceResponse<IMatchScoreboard>> {
+    const match = await this.matchModel.findMatchById(Number(id));
+
+    if (!match) return { status: 'NOT_FOUND', data: { message: 'Match not found' } };
+
+    if (!match.inProgress) {
+      return { status: 'UNAUTHORIZED', data: { message: 'Match not finished' } };
+    }
     await this.matchModel.updateMatch(Number(id), scoreboard);
 
     return { status: 'SUCCESSFUL', data: scoreboard };
+  }
+
+  async createMatch(data: IMatchCreate): Promise<ServiceResponse<IMatches | ServiceMessage>> {
+    const match = await this.matchModel.createMatch(data);
+
+    return { status: 'CREATED', data: match };
   }
 }
 

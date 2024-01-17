@@ -1,17 +1,9 @@
-// src/interfaces/ServiceResponse.ts
+type ServiceResponseStatus =
+'SUCCESSFUL' | 'BAD_REQUEST' | 'UNAUTHORIZED' | 'NOT_FOUND' | 'CREATED';
 
 export type ServiceMessage = { message: string };
 
-type ServiceResponseErrorType = 'INVALID_DATA' | 'UNAUTHORIZED' | 'NOT_FOUND' | 'CONFLICT';
-
-export type ServiceResponseError = {
-  status: ServiceResponseErrorType,
-  data: ServiceMessage
+export type ServiceResponse<T> = {
+  status: ServiceResponseStatus,
+  data: T | ServiceMessage,
 };
-
-export type ServiceResponseSuccess<T> = {
-  status: 'SUCCESSFUL',
-  data: T
-};
-
-export type ServiceResponse<T> = ServiceResponseError | ServiceResponseSuccess<T>;

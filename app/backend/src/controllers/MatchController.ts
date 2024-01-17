@@ -33,6 +33,15 @@ class MatchesController {
 
     return res.status(mapStatusHTTP(status)).json(data);
   }
+
+  public async createMatch(req: Request, res: Response) {
+    const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
+
+    const { status, data } = await this.matchService
+      .createMatch({ homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals });
+
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
 }
 
 export default MatchesController;
