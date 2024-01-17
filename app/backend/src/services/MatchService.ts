@@ -1,6 +1,6 @@
 // import { QueryTypes } from 'sequelize';
 import { IMatchModel } from '../Interfaces/matches/IMatchesModel';
-import { IMatches } from '../Interfaces/matches/IMatches';
+import { IMatchScoreboard, IMatches } from '../Interfaces/matches/IMatches';
 import { ServiceMessage, ServiceResponse } from '../Interfaces/ServiceResponse';
 
 import MatchModel from '../models/MatchModel';
@@ -21,6 +21,15 @@ class MatchService {
     await this.matchModel.finishMatch(Number(id));
 
     return { status: 'SUCCESSFUL', data: { message: 'Finished' } };
+  }
+
+  async updateMatch(
+    id: string,
+    scoreboard: IMatchScoreboard,
+  ): Promise<ServiceResponse<IMatchScoreboard>> {
+    await this.matchModel.updateMatch(Number(id), scoreboard);
+
+    return { status: 'SUCCESSFUL', data: scoreboard };
   }
 }
 

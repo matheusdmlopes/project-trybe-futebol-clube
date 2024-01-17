@@ -6,3 +6,5 @@ export interface IMatches {
   awayTeamGoals: number,
   inProgress: boolean,
 }
+
+export type IMatchScoreboard = Pick<IMatches, 'homeTeamGoals' | 'awayTeamGoals'>;

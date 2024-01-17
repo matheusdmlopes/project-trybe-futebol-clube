@@ -23,6 +23,16 @@ class MatchesController {
 
     return res.status(mapStatusHTTP(status)).json(data);
   }
+
+  public async updateMatch(req: Request, res: Response) {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+
+    const { status, data } = await this
+      .matchService.updateMatch(id, { homeTeamGoals, awayTeamGoals });
+
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
 }
 
 export default MatchesController;
