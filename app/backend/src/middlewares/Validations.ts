@@ -13,7 +13,7 @@ export default class Validations {
     if (!verifyEmail(user.email) || !verifyPassword(user.password)) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
-    console.log('user');
+    // console.log('user');
     next();
   }
 
